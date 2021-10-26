@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/mainBackground">
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="WatchList"
+        android:textColor="@color/mainTextColor"
+        android:textSize="@dimen/titleTextSize" />
+
+    <TextView
+        android:id="@+id/mainText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/mainText"
+        android:gravity="center"
+        android:textSize="@dimen/mainTextSize"
+        android:layout_margin="10dp"
+        android:layout_below="@id/titleText"
+        android:textColor="@color/mainTextColor"/>
+
+    <Button
+        android:id="@+id/btnMulai"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Mulai"
+        android:layout_below="@id/mainText"
+        android:layout_centerInParent="true"
+        android:layout_margin="5dp"/>
+
+
+
+</RelativeLayout>

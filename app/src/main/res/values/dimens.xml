@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="paddingSize">10dp</dimen>
+    <dimen name="titleTextSize">40dp</dimen>
     <dimen name="mainTextSize">25dp</dimen>
     <dimen name="resultSIze">20dp</dimen>
     <dimen name="padding">10dp</dimen>
-    <dimen name="foodNameSize">20dp</dimen>
+    <dimen name="nameSize">20dp</dimen>
     <dimen name="headerDetail">20dp</dimen>
     <dimen name="layout_margin">8dp</dimen>
 </resources>

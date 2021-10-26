@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Tubes1-P3B</string>
+    <string name="mainText">
+        Selamat Datang di Watchlist
+        Silahkan Klik Mulai untuk Masuk
+    </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
