@@ -67,7 +67,7 @@ public class MovieListPlainAdapter extends BaseAdapter {
     class ViewHolder{
         protected TextView title;
         public ViewHolder (View view){
-            this.title = view.findViewById(R.id.tv_judul;
+            this.title = view.findViewById(R.id.tv_judul);
         }
         public void updateView(Movie food){
             this.title.setText(food.getJudul());

@@ -7,8 +7,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.tubes1_p3b.databinding.ActivityMainBinding;
 
@@ -19,12 +24,9 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     private DrawerLayout drawer;
     private FragmentManager fragmentManager;
     private MainFragment mainFragment;
-    private AddMenuFragment addMenuFragment;
-    private EditMenuFragment editMenuFragment;
-    private DetailMenuFragment detailMenuFragment;
-    private MainPresenter presenter;
-    private FoodListAdapter adapter;
-    private SettingFragment settingFragment;
+    private ListMovFragment listFragment;
+    private AddFragment addFragment;
+    private MovieListPlainAdapter adapter;
     private SharedPreferences sp;
 
     @Override
@@ -33,30 +35,28 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.binding = ActivityMainBinding.inflate(this.getLayoutInflater());
         setContentView(binding.getRoot());
 
-        sp = getPreferences(MODE_PRIVATE);
-        this.presenter = new MainPresenter(this, sp);
-        this.adapter = new FoodListAdapter(this, this.presenter);
+//        sp = getPreferences(MODE_PRIVATE);
+//        this.presenter = new MainPresenter(this, sp);
+//        this.adapter = new MovieListPlainAdapter(this);
 
         this.drawer = binding.drawerLayout;
         this.toolbar = binding.toolbar;
         this.fragmentManager = this.getSupportFragmentManager();
-
+        this.mainFragment = new MainFragment();
+        this.listFragment = new ListMovFragment(this);
+        this.addFragment = new AddFragment();
 
 
         this.setSupportActionBar(this.toolbar);
 
-        this.mainFragment = new MainFragment();
-        this.addMenuFragment = addMenuFragment.newInstance(this.adapter, this.presenter);
-        this.editMenuFragment = new EditMenuFragment();
-        this.detailMenuFragment = new DetailMenuFragment();
-        this.settingFragment = SettingFragment.newInstance(sp);
 
-        boolean isNightMode = this.loadTheme();
-        if(isNightMode){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+
+//        boolean isNightMode = this.loadTheme();
+//        if(isNightMode){
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//        } else {
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        }
 
 
         //hamburger menu icon
@@ -65,124 +65,41 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         abdt.syncState();
 
         FragmentTransaction ft = this.fragmentManager.beginTransaction();
-        ft.add(R.id.fragment_container, this.editMenuFragment);
-        ft.add(R.id.fragment_container, this.mainFragment).commit();
+        ft.add(R.id.fragment_container, this.mainFragment).addToBackStack(null).commit();
+
     }
 
     @Override
-    public void changePage(String page) {
+    public void changePage(int page) {
         FragmentTransaction ft = this.fragmentManager.beginTransaction();
-        if(page.equals("home")){
-            if(this.mainFragment.isAdded()) {
-                ft.show(this.mainFragment).addToBackStack(null);
+        if (page == 1){
+            Log.d("debug", "starting page");
+            if (this.mainFragment.isAdded()){
+                ft.show(this.mainFragment);
             }
-            else {
-                ft.add(R.id.fragment_container, this.mainFragment).addToBackStack(null);
+            else{
+                ft.add(R.id.fragment_container,this.mainFragment).addToBackStack(null);
             }
-            if(this.addMenuFragment.isAdded()) {
-                ft.hide(this.addMenuFragment).addToBackStack(null);
+
+        }
+        else if (page == 2){
+            Log.d("debug", "menuju halaman utama");
+            if (this.listFragment.isAdded()){
+                ft.show(this.listFragment);
+            }else{
+                ft.add(R.id.fragment_container,this.listFragment).addToBackStack(null);
             }
-            if(this.editMenuFragment.isAdded()) {
-                ft.hide(this.editMenuFragment).addToBackStack(null);
+
+            if(this.listFragment.isAdded()){
+                ft.hide(this.addFragment);
             }
-            if(this.detailMenuFragment.isAdded()){
-                ft.hide(this.detailMenuFragment).addToBackStack(null);
-            }
-            if (this.settingFragment.isAdded()) {
-                ft.hide(this.settingFragment).addToBackStack(null);
-            }
-        } else if(page.equals("addMenu")) {
-            if(this.addMenuFragment.isAdded()) {
-                ft.show(this.addMenuFragment).addToBackStack(null);
-            }
-            else {
-                ft.add(R.id.fragment_container, this.addMenuFragment).addToBackStack(null);
-            }
-            if(this.mainFragment.isAdded()) {
-                ft.hide(this.mainFragment).addToBackStack(null);
-            }
-            if(this.editMenuFragment.isAdded()) {
-                ft.hide(this.editMenuFragment).addToBackStack(null);
-            }
-            if(this.detailMenuFragment.isAdded()) {
-                ft.hide(this.detailMenuFragment).addToBackStack(null);
-            }
-            if (this.settingFragment.isAdded()) {
-                ft.hide(this.settingFragment).addToBackStack(null);
-            }
-        } else if(page.equals("editMenu")) {
-            this.editMenuFragment.makeEmptyEditMenu();
-            if(this.editMenuFragment.isAdded()) {
-                ft.show(this.editMenuFragment).addToBackStack(null);
-            }
-            else {
-                ft.add(R.id.fragment_container, this.editMenuFragment).addToBackStack(null);
-            }
-            if(this.addMenuFragment.isAdded()) {
-                ft.hide(this.addMenuFragment).addToBackStack(null);
-            }
-            if(this.detailMenuFragment.isAdded()) {
-                ft.hide(this.detailMenuFragment).addToBackStack(null);
-            }
-            if(this.mainFragment.isAdded()) {
-                ft.hide(this.mainFragment).addToBackStack(null);
-            }
-            if (this.settingFragment.isAdded()) {
-                ft.hide(this.settingFragment).addToBackStack(null);
-            }
-        } else if(page.equals("editMenuOfList")) {
-            if(this.editMenuFragment.isAdded()) {
-                ft.show(this.editMenuFragment).addToBackStack(null);
-            }
-            else {
-                ft.add(R.id.fragment_container, this.editMenuFragment).addToBackStack(null);
-            }
-            if(this.addMenuFragment.isAdded()) {
-                ft.hide(this.addMenuFragment).addToBackStack(null);
-            }
-            if(this.detailMenuFragment.isAdded()) {
-                ft.hide(this.detailMenuFragment).addToBackStack(null);
-            }
-            if(this.mainFragment.isAdded()) {
-                ft.hide(this.mainFragment).addToBackStack(null);
-            }
-            if (this.settingFragment.isAdded()) {
-                ft.hide(this.settingFragment).addToBackStack(null);
-            }
-        } else if(page.equals("detailMenu")) {
-            if(this.detailMenuFragment.isAdded()) {
-                ft.show(this.detailMenuFragment).addToBackStack(null);
-            }
-            else {
-                ft.add(R.id.fragment_container, this.detailMenuFragment).addToBackStack(null);
-            }
-            if(this.addMenuFragment.isAdded()) {
-                ft.hide(this.addMenuFragment).addToBackStack(null);
-            }
-            if(this.editMenuFragment.isAdded()) {
-                ft.hide(this.editMenuFragment).addToBackStack(null);
-            }
-            if(this.mainFragment.isAdded()) {
-                ft.hide(this.mainFragment).addToBackStack(null);
-            }
-            if (this.settingFragment.isAdded()) {
-                ft.hide(this.settingFragment).addToBackStack(null);
-            }
-        } else if(page.equals("setting")) {
-            if(this.settingFragment.isAdded()) {
-                ft.show(this.settingFragment).addToBackStack(null);
-            }
-            else {
-                ft.add(R.id.fragment_container, this.settingFragment).addToBackStack(null);
-            }
-            if(this.mainFragment.isAdded()){
-                ft.hide(this.mainFragment).addToBackStack(null);
-            }
-            if (this.addMenuFragment.isAdded()){
-                ft.hide(this.addMenuFragment).addToBackStack(null);
-            }
-            if(this.detailMenuFragment.isAdded()) {
-                ft.hide(this.detailMenuFragment).addToBackStack(null);
+        }
+        else if(page == 3){
+            Log.d("debug", "menuju halaman add");
+            if (this.addFragment.isAdded()){
+                ft.show(this.addFragment);
+            }else{
+                ft.add(R.id.fragment_container,this.addFragment).addToBackStack(null);
             }
         }
         ft.commit();
@@ -195,21 +112,6 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.finish();
     }
 
-    @Override
-    public Food getRandomFoods() {
-        Food res = null;
-        List<Food> temp = this.addMenuFragment.getFoodList();
-        if (!temp.isEmpty()) {
-            Random rand = new Random();
-            res = temp.get(rand.nextInt(temp.size()));
-        }
-        return res;
-    }
-
-    @Override
-    public void addList(String title, String desc, String tag, String bahan, String steps) {
-        this.addMenuFragment.addList(title, desc, tag, bahan, steps);
-    }
 
     @Override
     public void closeKeyboard(){
@@ -220,39 +122,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         }
     }
 
-    @Override
-    public void updateList(List<Food> foods) {
-        this.adapter.addLine(foods);
-    }
 
-    @Override
-    public void createDetailMenuFragment(Food food, int position) {
-        this.detailMenuFragment = detailMenuFragment.newInstance(food, position);
-        this.changePage("detailMenu");
-    }
-
-    @Override
-    public void transferData(int position, String title, String desc, String tag, String bahan, String steps) {
-        this.editMenuFragment.transferData(position, title, desc, tag, bahan, steps);
-    }
-
-    @Override
-    public void changeList(int position, String title, String desc, String tag, String bahan, String steps) {
-        this.presenter.changeList(position, title, desc, tag, bahan, steps);
-    }
-
-    @Override
-    public void saveTheme(boolean bool){
-        SharedPreferences.Editor editor = this.sp.edit();
-        editor.putBoolean("Theme", bool);
-        editor.apply();
-    }
-
-    @Override
-    public boolean loadTheme(){
-        boolean res = sp.getBoolean("Theme", false);
-        return res;
-    }
 
     @Override
     public void restartApp(){

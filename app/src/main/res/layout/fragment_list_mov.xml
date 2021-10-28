@@ -14,7 +14,7 @@
 
         <ListView
             xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/lvFilm"
+            android:id="@+id/lv_film"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </ListView>
@@ -38,7 +38,7 @@
                 app:cornerRadius="95dp"
                 android:text="+"
                 android:textSize="40sp"
-                android:id="@+id/btnAdd"
+                android:id="@+id/btn_add_list"
                 />
 
         </LinearLayout>
