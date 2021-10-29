@@ -33,19 +33,19 @@ public class LeftFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if(v == this.binding.homeBtn) {
-            this.listener.changePage("home");
+            this.listener.changePage(2);
         }
         else if(v == this.binding.daftarBtn) {
-            this.listener.changePage("daftar");
+            this.listener.changePage(3);
         }
         else if(v == this.binding.historyBtn) {
-            this.listener.changePage("history");
+            this.listener.changePage(2);
         }
         else if(v == this.binding.exitBtn) {
             this.listener.closeApplication();
         }
         else if(v == this.binding.settingBtn){
-            this.listener.changePage("setting");
+            this.listener.changePage(2);
         }
     }
 

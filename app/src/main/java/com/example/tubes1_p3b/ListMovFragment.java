@@ -8,22 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.tubes1_p3b.databinding.FragmentLeftBinding;
+
 import com.example.tubes1_p3b.databinding.FragmentListMovBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ListMovFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ListMovFragment extends Fragment implements View.OnClickListener{
 
     private FragmentListMovBinding binding;
     private MovieListPlainAdapter adapter;
     private MainActivity activity;
+    private FragmentListener listener;
     public ListMovFragment(MainActivity activity) {
         this.activity = activity;
     }
@@ -52,7 +49,7 @@ public class ListMovFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         if (view == binding.btnAddList) {
-            ((MainActivity) getActivity()).changePage(3);
+            this.listener.changePage(3);
         }
     }
 }

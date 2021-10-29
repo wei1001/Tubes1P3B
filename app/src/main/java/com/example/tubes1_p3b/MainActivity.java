@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     private MainFragment mainFragment;
     private ListMovFragment listFragment;
     private AddFragment addFragment;
-    private MovieListPlainAdapter adapter;
-    private SharedPreferences sp;
+//    private MovieListPlainAdapter adapter;
+//    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +46,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.listFragment = new ListMovFragment(this);
         this.addFragment = new AddFragment();
 
-
-        this.setSupportActionBar(this.toolbar);
+//        this.setSupportActionBar(binding.toolbar);
 
 
 

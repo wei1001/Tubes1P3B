@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:hint="Nama Movie/Series"
             android:textAlignment="center"
-            android:id="@+id/edNama"
+            android:id="@+id/ed_nama"
             android:padding="30dp">
         </EditText>
 
@@ -35,24 +35,25 @@
             android:layout_height="wrap_content"
             android:hint="Sinopsis"
             android:textAlignment="center"
-            android:padding="60dp"
-            android:id="@+id/edSinopsis">
+            android:padding="55dp"
+            android:layout_below="@id/ed_nama"
+            android:id="@+id/ed_sinopsis">
         </EditText>
 
-        <EditText
+        <ImageButton
+            android:id="@+id/ed_poster"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Soster"
-            android:textAlignment="center"
-            android:padding="60dp"
-            android:id="@+id/edPoster"
-            />
+            android:layout_height="200dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@android:drawable/ic_input_add" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"
+            android:text="ADD"
             android:layout_gravity="right"
-            android:id="@+id/btnSave"
+            android:layout_below="@id/ed_poster"
+            android:id="@+id/btn_add"
             />
 
 
