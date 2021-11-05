@@ -4,9 +4,11 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 
 import com.example.tubes1_p3b.databinding.FragmentListMovBinding;
@@ -21,6 +23,7 @@ public class ListMovFragment extends Fragment implements View.OnClickListener{
     private MovieListPlainAdapter adapter;
     private MainActivity activity;
     private FragmentListener listener;
+    private MainPresenter mainPresenter;
     public ListMovFragment(MainActivity activity) {
         this.activity = activity;
     }
@@ -40,16 +43,28 @@ public class ListMovFragment extends Fragment implements View.OnClickListener{
         List<Movie> objarr=new ArrayList<>();
         objarr.add(new Movie("Testing"));
         this.adapter.tambah(objarr);
-        binding.lvFilm.setAdapter(this.adapter);
+        this.binding.lvFilm.setAdapter(this.adapter);
         SQLDB myDB =  new SQLDB(this.activity);
         this.adapter.add(myDB.get());
+        this.binding.btnAddList.setOnClickListener(this);
+        binding.lvFilm.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("test", " " +  "    " + position);
+//                mainPresenter.detailPage(position);
+                Bundle result= new Bundle();
+                result.putInt("bundleKey", position);
+                getParentFragmentManager().setFragmentResult("requestKey", result);
+                ((MainActivity) getActivity()).changePage(4);
 
+            }
+        });
         return view;
     }
     @Override
     public void onClick(View view) {
         if (view == binding.btnAddList) {
-            this.listener.changePage(3);
+            ((MainActivity) getActivity()).changePage(3);
         }
     }
 }

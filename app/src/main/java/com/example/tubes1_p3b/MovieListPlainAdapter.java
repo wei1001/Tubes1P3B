@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -66,11 +67,16 @@ public class MovieListPlainAdapter extends BaseAdapter {
 
     class ViewHolder{
         protected TextView title;
+        private LinearLayout list;
+        protected int i;
+
         public ViewHolder (View view){
             this.title = view.findViewById(R.id.tv_judul);
+            this.list= view.findViewById(R.id.ll_judul);
+            this.i = i;
         }
-        public void updateView(Movie food){
-            this.title.setText(food.getJudul());
+        public void updateView(Movie mov){
+            this.title.setText(mov.getJudul());
         }
     }
 

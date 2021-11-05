@@ -1,115 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainBackground">
-    <LinearLayout
+    android:fillViewport="true">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:layout_height="match_parent"
+        android:background="@color/white">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Judul"
-                android:textSize="30sp"
-                android:textAlignment="center"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:text="POSTER"
-                android:textSize="30sp"
-                android:textAlignment="center"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="STATUS : "
-                android:textSize="30sp"
-                android:textAlignment="center"
-                />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/tv_judul_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="INI JUDUL FILM"
+                    android:textSize="30sp"
+                    android:textAlignment="center"
+                    />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:hint="Poster"
+                    android:textSize="30sp"
+                    android:textAlignment="center"
+                    android:id="@+id/iv_poster"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="STATUS : "
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:textAlignment="center"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <Button
+                        android:id="@+id/btn_belum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Belum"
+                        />
+                    <Button
+                        android:id="@+id/btn_sedang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Sedang"
+                        />
+                    <Button
+                        android:id="@+id/btn_selesai"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Selesai"
+                        android:layout_marginLeft="5dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:gravity="center">
+
+                <LinearLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rating_bar_id"
+                        android:numStars="5"
+                        android:stepSize="1"
+                        android:gravity="center"
+                        android:layout_marginRight="45dp"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:id="@+id/btn_save_rating"
+                        android:text="SAVE RATE"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                >
-                <ImageView
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@android:drawable/btn_star_big_off"
+                    android:text="Review"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+
                     />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/btn_star_big_off"
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="150sp"
+                    android:id="@+id/ed_review"
+                    android:textColor="@color/black"
                     />
-                <ImageView
+                <Button
+                    android:id="@+id/btn_save_review"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@android:drawable/btn_star_big_off"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/btn_star_big_off"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/btn_star_big_off"
+                    android:text="Save"
+                    android:layout_gravity="right"
                     />
             </LinearLayout>
         </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
 
-        <LinearLayout
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Review"
-                android:textSize="30sp"
-                />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="150sp"
-                />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save"
-                android:layout_gravity="right"
-                />
-
-        </LinearLayout>
-    </LinearLayout>
-</RelativeLayout>

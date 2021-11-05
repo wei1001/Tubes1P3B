@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.tubes1_p3b.databinding.FragmentAddBinding;
 
@@ -23,9 +24,11 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     private FragmentAddBinding binding;
     private String poster;
     private ActivityResultLauncher<Intent> intentLauncher;
+    private MainActivity activity;
+    private MainPresenter mainPresenter;
 
-    public AddFragment() {
-        // Required empty public constructor
+    public AddFragment(MainActivity activity) {
+        this.activity = activity;
     }
 
 
@@ -52,31 +55,40 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         return binding.getRoot();
 
     }
-
-
     @Override
     public void onClick(View v) {
-        int clicked = v.getId();
-        Bundle result = new Bundle();
-        if (clicked == binding.btnAdd.getId()) {
-            String judul = binding.edNama.getText().toString();
-            String sinopsis = binding.edSinopsis.getText().toString();
-            result.putString("judul", judul);
-            result.putString("sinopsis", sinopsis);
-
-            binding.edNama.setText("");
-            binding.edPoster.setImageResource(R.drawable.ic_add);
-            binding.edSinopsis.setText("");
-
-            result.putString("poster", this.poster);
-            getParentFragmentManager().setFragmentResult("insertData", result);
-
+        if (v == binding.btnAdd){
+            SQLDB myDB =  new SQLDB(this.activity);
+            myDB.addFilm(binding.edNama.getText().toString().trim(), binding.edSinopsis.getText().toString().trim(),this.poster);
+//            mainPresenter.addPage();
+            ((MainActivity) getActivity()).changePage(2);
         }
-        else if (clicked == binding.edPoster.getId()) {
-            Intent getImage = new Intent(Intent.ACTION_PICK);
+        else if (v== binding.edPoster){
+            Intent getImage= new Intent(Intent.ACTION_PICK);
             getImage.setType("image/*");
             this.intentLauncher.launch(getImage);
         }
+
+//        Bundle result = new Bundle();
+//        if (v == binding.btnAdd) {
+//            String judul = binding.edNama.getText().toString();
+//            String sinopsis = binding.edSinopsis.getText().toString();
+//            result.putString("judul", judul);
+//            result.putString("sinopsis", sinopsis);
+//
+//            binding.edNama.setText("");
+//            binding.edPoster.setImageResource(R.drawable.ic_add);
+//            binding.edSinopsis.setText("");
+//
+//            result.putString("poster", this.poster);
+//            getParentFragmentManager().setFragmentResult("insertData", result);
+//
+//        }
+//        else if (v== binding.edPoster) {
+//            Intent getImage = new Intent(Intent.ACTION_PICK);
+//            getImage.setType("image/*");
+//            this.intentLauncher.launch(getImage);
+//        }
     }
 
 
